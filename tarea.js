@@ -18,83 +18,54 @@ const sumArray = (array) => {
   // Función findMaxNumber: Encontrar el mayor número en un array
   // Parámetros: array (Array) - Un array de números
   // Devuelve: Number - El mayor número en el array
-  const findMaxNumber = (array) => {
-    let max = array[0]; // Tomamos el primer elemento como candidato a máximo
-    for (let i = 1; i < array.length; i++) {
-        if (array[i] > max) {
-            max = array[i]; // Si encontramos un número mayor, lo actualizamos como máximo
-        }
-    }
-    return max; 
+  const findMaxNumber = array => array.length !== 0 ? Math.max(...array) : undefined;
+
     
-  };
   
   // Función toUpperCaseStrings: Convertir un array de strings a mayúsculas
   // Parámetros: array (Array) - Un array de strings
   // Devuelve: Array - Un nuevo array con todas las strings convertidas a mayúsculas
-  const toUpperCaseStrings = (array) => {
-    
-        return array.map(str => str.toUpperCase());
-    
-  };
+  const toUpperCaseStrings = (array) => array.map(e=> e.toUpperCase());
 
   
   // Función calculateAverage: Calcular el promedio de un array de números
   // Parámetros: array (Array) - Un array de números
   // Devuelve: Number - El promedio de los números en el array
-  const calculateAverage = (numbers) => {
-    if (numbers.length === 0) {
-        return NaN; // Devuelve NaN para un array vacío
-      }
-      const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-      return sum / numbers.length;
-    
-  };
+  const calculateAverage = (array) =>  array.length === 0 ? NaN : (array.reduce((sum, sv)=> sum + sv))/array.length;
+
   
   // Función sortNumbersAscending: Ordenar un array de números de forma ascendente
   // Parámetros: array (Array) - Un array de números
   // Devuelve: Array - Un nuevo array con los números ordenados de forma ascendente
-  const sortNumbersAscending = (array) => {
-    return array.slice().sort((a, b) => a - b);
-  };
+  const sortNumbersAscending = (array) => array[0] < 0 ? array.sort().reverse() : array.sort();
+
+  
   
   // Función findFirstElement: Encontrar el primer elemento que cumple una condición en un array
   // Parámetros: 
   // - array (Array) - Un array de elementos
   // - condition (Function) - Una función de condición que devuelve true o false
   // Devuelve: Any - El primer elemento que cumple con la condición, o undefined si ninguno lo hace
-  const findFirstElement = (array, condition) => {
-    for (let i = 0; i < array.length; i++) {
-        if (condition(array[i])) {
-            return array[i];
-        }
-    }
-    return undefined; // Devolvemos undefined si ningún elemento cumple la condición
-  };
+  const findFirstElement = (array, condition) => array.find(condition);
   
   // Función countElements: Contar la cantidad de elementos en un array
   // Parámetros: array (Array) - Un array de elementos
   // Devuelve: Number - La cantidad de elementos en el array
-  const countElements = (array) => {
-    return array.length;
+  const countElements = (array) => array.length;
 
-  };
   
   // Función concatenateArrays: Concatenar dos arrays
   // Parámetros: 
   // - array1 (Array) - El primer array a concatenar
   // - array2 (Array) - El segundo array a concatenar
   // Devuelve: Array - Un nuevo array que es la concatenación de los dos arrays proporcionados
-  const concatenateArrays = (array1, array2) => {
-    return array1.concat(array2);
-  };
+  const concatenateArrays = (array1, array2) => [...array1, ...array2];
   
   // Función squareNumbers: Calcular el cuadrado de cada número en un array
   // Parámetros: array (Array) - Un array de números
   // Devuelve: Array - Un nuevo array con los cuadrados de los números en el array original
-  const squareNumbers = (array) => {
-    return array.map(num => num ** 2);
-  };
+  const squareNumbers = (array) =>  array.map(num => num ** 2);
+    
 
   // Función flecha para agregar habilidades a un jugador de un juego
 const agregarHabilidad = (jugador, nuevaHabilidad) => {
@@ -126,11 +97,7 @@ const agregarHabilidad = (jugador, nuevaHabilidad) => {
 // - peliculas: Array de objetos que representan películas, cada objeto tiene propiedades como 'titulo' y 'duracion'.
 // Retorna:
 // - Un número que representa la duración total de todas las películas en minutos.
-const calcularDuracionTotal = (peliculas) => {
-    const duracionesValidas = peliculas.map(pelicula => (pelicula.duracion >= 0 ? pelicula.duracion : 0)); // Ignora duraciones negativas
-    return duracionesValidas.reduce((acc, duracion) => acc + duracion, 0);
-};
-
+const calcularDuracionTotal = (peliculas) => peliculas.reduce((acumulador, pelicula) => pelicula.duracion > 0 ? acumulador + pelicula.duracion : acumulador, 0);
 
 // Función para buscar películas por título y género.
 // Parámetros:
