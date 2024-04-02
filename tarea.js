@@ -25,7 +25,7 @@ const sumArray = (array) => {
             max = array[i]; // Si encontramos un número mayor, lo actualizamos como máximo
         }
     }
-    return max; // Devolvemos el número máximo encontrado
+    return max; 
     
   };
   
@@ -117,7 +117,7 @@ const agregarHabilidad = (jugador, nuevaHabilidad) => {
     if (!jugador.habilidades.includes(nuevaHabilidad)) {
         jugador.habilidades.push(nuevaHabilidad); // Agregamos la nueva habilidad solo si no existe en el arreglo
     }
-    return jugador; // Retornamos el objeto jugador modificado
+    return jugador; 
    
 };
 
@@ -141,8 +141,23 @@ const calcularDuracionTotal = (peliculas) => {
 // - Un array de objetos que representan películas que coinciden con el título y el género especificados.
 const buscarPeliculas = (peliculas, titulo, genero) => {
     return peliculas.filter(pelicula => {
-        return pelicula.titulo.toLowerCase().includes(titulo.toLowerCase()) &&
-               pelicula.genero.toLowerCase() === genero.toLowerCase();
+        // Verificar si se proporciona tanto el título como el género
+        if (titulo && genero) {
+            return pelicula.titulo.toLowerCase().includes(titulo.toLowerCase()) &&
+                   pelicula.genero.toLowerCase() === genero.toLowerCase();
+        }
+        // Si solo se proporciona el título
+        else if (titulo && !genero) {
+            return pelicula.titulo.toLowerCase().includes(titulo.toLowerCase());
+        }
+        // Si solo se proporciona el género
+        else if (!titulo && genero) {
+            return pelicula.genero.toLowerCase() === genero.toLowerCase();
+        }
+        // Si no se proporciona ni el título ni el género
+        else {
+            return [];
+        }
     });
 };
 
@@ -154,7 +169,7 @@ const buscarPeliculas = (peliculas, titulo, genero) => {
 const calcularPromedioPuntajes = (peliculas) => {
     const puntajesValidos = peliculas.filter(pelicula => pelicula.puntaje >= 0);
   if (puntajesValidos.length === 0) {
-    return 0; // Devuelve 0 si no hay películas con puntaje válido
+    return 0; 
   }
   const sumatoriaPuntajes = puntajesValidos.reduce((acc, pelicula) => acc + pelicula.puntaje, 0);
   return sumatoriaPuntajes / puntajesValidos.length;
@@ -183,7 +198,7 @@ const calcularPromedioDuracionPorGenero = (peliculas, genero) => {
     const peliculasDelGenero = peliculas.filter(pelicula => pelicula.genero.toLowerCase() === genero.toLowerCase());
 
     if (peliculasDelGenero.length === 0) {
-        return 0; // Si no hay películas del género especificado, el promedio es 0
+        return 0; 
     }
 
     const duracionTotal = peliculasDelGenero.reduce((acumulador, pelicula) => acumulador + pelicula.duracion, 0);
@@ -243,8 +258,7 @@ class Automovil extends Vehiculo {
      * @returns {string} - La información del automóvil en formato de cadena de texto.
      */
     obtenerInformacion() {
-        return `Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Número de Puertas: ${this.numPuertas}, Número de Asientos: ${this.numAsientos}, Tipo de Transmisión: ${this.tipoTransmision}`;
-    
+        return `${super.obtenerInformacion()}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Puertas: ${this.numPuertas}, Asientos: ${this.numAsientos}, Transmisión: ${this.tipoTransmision}`;
     }
 }
 
@@ -276,8 +290,7 @@ class Motocicleta extends Vehiculo {
      * @returns {string} - La información de la motocicleta en formato de cadena de texto.
      */
     obtenerInformacion() {
-        return `Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Número de Ruedas: ${this.numRuedas}, Tipo: ${this.tipo}`;
-    
+        return `${super.obtenerInformacion()}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Ruedas: ${this.numRuedas}, Tipo: ${this.tipo}`;
     }
 }
 
@@ -311,8 +324,7 @@ class Camion extends Vehiculo {
      * @returns {string} - La información del camión en formato de cadena de texto.
      */
     obtenerInformacion() {
-    return `Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Número de Ejes: ${this.numEjes}, Capacidad de Carga: ${this.capacidadCarga} toneladas, Tipo de Carrocería: ${this.tipoCarroceria}`;
-    
+        return `${super.obtenerInformacion()}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Ejes: ${this.numEjes}, Capacidad de Carga: ${this.capacidadCarga}, Tipo de Carrocería: ${this.tipoCarroceria}`;
     }
 }
 
@@ -346,7 +358,7 @@ class Autobus extends Vehiculo {
      * @returns {string} - La información del autobús en formato de cadena de texto.
      */
     obtenerInformacion() {
-        return `Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Capacidad de Pasajeros: ${this.capacidadPasajeros}, Tipo de Combustible: ${this.tipoCombustible}, Tipo de Motor: ${this.tipoMotor}`;
+        return `${super.obtenerInformacion()}, Color: ${this.color}, Cilindrada: ${this.cilindrada}, Potencia: ${this.potencia}, Pasajeros: ${this.capacidadPasajeros}, Combustible: ${this.tipoCombustible}, Tipo de Motor: ${this.tipoMotor}`;
     
     }
 }
@@ -380,9 +392,8 @@ class Bicicleta extends Vehiculo {
      * Método para obtener la información de la bicicleta.
      * @returns {string} - La información de la bicicleta en formato de cadena de texto.
      */
-    obtenerInformacion() {
-        return `Marca: ${this.marca}, Modelo: ${this.modelo}, Año: ${this.año}, Tipo: ${this.tipo}, Número de Marchas: ${this.numMarchas}, Material: ${this.material}, Suspensión: ${this.suspencion}, Frenos: ${this.frenos}, Tipo de Manubrio: ${this.tipoManubrio}`;
-    
+     obtenerInformacion() {
+        return `${super.obtenerInformacion()}, Tipo: ${this.tipo}, Marchas: ${this.numMarchas}, Material: ${this.material}, Suspensión: ${this.suspencion}, Frenos: ${this.frenos}, Tipo de Manubrio: ${this.tipoManubrio}`;
     }
 }
 
